@@ -164,7 +164,8 @@ function display_info_site()
 function display_registration_form()
 {
 
-?>
+?>  
+    <title>Registration</title>
     
 
     <!--bootstrap 4 css-->
@@ -178,7 +179,7 @@ function display_registration_form()
     <form action="register_new.php" method="post" class="form-validate" _lpchecked="1" >
         <div class="form-group">
             <div class="control-label">
-                <label id="username-lbl" for="username" class="required invalid">Username</label>
+                <label id="username-lbl" for="username" class="required invalid">Username:</label>
             </div>
             <div class="controls">
                 <input name="username" id="username" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter username" type="text">
@@ -197,7 +198,7 @@ function display_registration_form()
         </div>
         <div class="form-group">
             <div class="control-label">
-                <label id="password-lbl" for="password" class="required">Password</label>
+                <label id="password-lbl" for="password" class="required">Password:</label>
                
             </div>
             <div class="controls">
@@ -206,7 +207,7 @@ function display_registration_form()
         </div>
         <div class="form-group">
             <div class="control-label">
-                <label  for="password2" class="required">Confirm Password</label>
+                <label  for="password2" class="required">Confirm Password:</label>
                
             </div>
             <div class="controls">
@@ -237,6 +238,7 @@ function display_login_form()
 {
 
 ?>
+    <title>Login</title>
     <!--bootstrap 4 css-->
      <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
 
@@ -258,7 +260,7 @@ function display_login_form()
 			<div class="form-group">
 				<div class="control-label">
 					<label id="password-lbl" for="password" class="required">Password<span class="star"> *</span></label>
-					<a class="float-right" href="forgot_passwd.php">Forgot your password?</a>
+					<a class="float-right" href="forgot_form.php">Forgot your password?</a>
 				</div>
 				<div class="controls">
                 <input type="password" class="form-control" id="passwd" placeholder="Enter password" name="passwd" required="">
@@ -308,29 +310,86 @@ function display_change_passwd_form()
 
 ?>
 
+    
+     <!--bootstrap 4 css-->
+     <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
 
-    <!--Form html code-->
-    <form action="change_passwd.php" method="post" onsubmit="return validate_mForm_change_passwd()">
-
-        <label>Old Password:
-        </label>
-        <input type="text" id="old_passwd" name="old_passwd"><br><br>
-
-        <label>New Password:
-        </label>
-        <input type="text" id="new_passwd" name="new_passwd"><br><br>
-
-        <label>Confirm password:
-        </label>
-        <input type="text" id="new_passwd2" name="new_passwd2"><br><br>
-
-
-
-        <input type="submit" value="Submit">
+<div class="container">
+<div class="login-form mx-auto col-5"> <!--mx-auto : margin horizontal center-->
+    <div class="page-header text-center">
+        <h1>Change Password</h1>
+    </div>
+    <form action="change_passwd.php" method="post" class="form-validate" _lpchecked="1" onsubmit="return validate_change_passwd_form()">
+        <div class="form-group">
+            <div class="control-label">
+                <label for="old_passwd" class="required invalid">Old password:</label>
+            </div>
+            <div class="controls">
+                <input name="old_passwd" id="old_passwd" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter old passwd" type="password">
+                <p class="text-danger" id="error_url"></p>
+               
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label">
+                <label for="new_passwd" class="required invalid">New password:</label>
+            </div>
+            <div class="controls">
+                <input name="new_passwd" id="new_passwd" value="" class="form-control" size="15" required=""  placeholder="Enter new password" type="text">
+                <p class="text-danger" id="error_url"></p>
+               
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="control-label">
+                <label for="new_passwd2" class="required invalid">Confirm new password:</label>
+            </div>
+            <div class="controls">
+                <input name="new_passwd2" id="new_passwd2" value="" class="form-control" size="15" required=""  placeholder="Confirm new password" type="text">
+                <p class="text-danger" id="error_url"></p>
+               
+            </div>
+        </div>
+        
+        
+            <div class="controls">
+                <button type="submit" id="btn" class="btn btn-primary" onclick="">Change Password</button>
+            </div>
+        
+        
+        
+        
     </form>
-    <!--include file javascript để xử lý form-->
-    <script type="text/javascript" src="js/mJs.js"></script>
+   
+</div>
+</div>
 
+<script>
+        function validate_change_passwd_form() {
+            var new_passwd = document.getElementById("new_passwd");
+            var new_passwd2 = document.getElementById("new_passwd2");
+
+            if(new_passwd.value != new_passwd2.value){
+                alert("New password chưa trùng khớp");
+                new_passwd.focus();
+                return false;
+            }
+           
+            
+           
+
+            return true;
+        }
+       
+            
+           
+
+
+       
+    </script>
+
+   
+    
 
 <?php
 }
@@ -343,39 +402,41 @@ function display_forgot_passwd_form()
 
 ?>
 
+     <!--bootstrap 4 css-->
+     <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
 
-    <!--Form html code-->
-    <form action="forgot_passwd.php" method="post" onsubmit="return validate_mForm_forgot_passwd();">
-
-
-        <label>UserName:
-        </label>
-
-        <input type="text" id="username" name="username"><br>
-
-
-        <input type="submit" value="Submit">
+<div class="container">
+<div class="login-form mx-auto col-5"> <!--mx-auto : margin horizontal center-->
+    <div class="page-header text-center">
+        <h1>Forgot Password</h1>
+    </div>
+    <form action="forgot_passwd.php" method="post" class="form-validate" _lpchecked="1" >
+        <div class="form-group">
+            <div class="control-label">
+                <label for="username" class="required invalid">Username:</label>
+            </div>
+            <div class="controls">
+                <input name="username" id="username" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter username" type="text">
+                <p class="text-danger" id="error_url"></p>
+               
+            </div>
+        </div>
+        
+        
+            <div class="controls">
+                <button type="submit" id="btn" class="btn btn-primary" onclick="">Reset Password</button>
+            </div>
+        
+        
+        
+        
     </form>
+   
+</div>
+</div>
 
-    <!--include file javascript để xử lý form-->
-    <script type="text/javascript">
-        function validate_mForm_forgot_passwd() {
-            var username = document.getElementById("username");
-
-            //null ?
-
-            if (username.value == "") {
-                username.focus(); //focus vào trường chưa nhập
-                alert("Chưa nhập username");
-                return false;
-            }
-
-
-
-            return true;
-        }
-    </script>
-
+   
+   
 
 <?php
 }
@@ -389,21 +450,40 @@ function display_add_bm_form()
     <!--include file javascript để xử lý form-->
 
 
+    <!--bootstrap 4 css-->
+    <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
 
-
-    <!--Form html code-->
-    <form action="add_bms.php" method="post" onsubmit="return validate_add_bm_form()">
-
-
-        <label>New BookMark
-        </label>
-
-        <input type="text" id="new_url" name="new_url"><br>
-
-
-        <input type="submit" value="Submit">
+<div class="container">
+<div class="login-form mx-auto col-5"> <!--mx-auto : margin horizontal center-->
+    <div class="page-header text-center">
+        <h1>Add new Bookmark</h1>
+    </div>
+    <form action="add_bms.php" method="post" class="form-validate" _lpchecked="1" onsubmit="return validate_add_bm_form()">
+        <div class="form-group">
+            <div class="control-label">
+                <label for="new_url" class="required invalid">New url</label>
+            </div>
+            <div class="controls">
+                <input name="new_url" id="new_url" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter new_url" type="text">
+                <p class="text-danger" id="error_url"></p>
+               
+            </div>
+        </div>
+        
+        
+            <div class="controls">
+                <button type="submit" id="btn" class="btn btn-primary" onclick="">Add</button>
+            </div>
+        
+        
+        
+        
     </form>
+   
+</div>
+</div>
 
+   
 
 
 
@@ -411,25 +491,26 @@ function display_add_bm_form()
         function validate_add_bm_form() {
             var new_url = document.getElementById("new_url");
 
-            //null ?
-            if (new_url.value == "") {
-                new_url.focus(); //focus vào trường chưa nhập
-                alert("Chưa nhập vào trường");
-                return false;
-            }
+           
             var str = new_url.value;
             var sub1 = "http://";
             var sub2 = "https://";
+            
             if (str.indexOf(sub1) == -1 && str.indexOf(sub2) == -1) {
-                alert("Url của bạn chưa có giao thức http:// hoặc https://");
-
-                return false;
-            }
-
+                    alert("Url nhập vào phải có http:// hoặc https://");
+                    new_url.focus();
+                    return false;
+               }
 
 
             return true;
         }
+       
+            
+           
+
+
+       
     </script>
 
 
@@ -443,15 +524,21 @@ function display_user_urls($url_array)
 {
 
 ?>
-    <h2>Your 's Bookmark</h2>
+    
 
-    <br>
-    <form action="delete_bms.php" method="post">
-        <table border="1px">
-            <tr>
-                <th>Bookmark</th>
-                <th>Delete ?</th>
-            </tr>
+    <div class="container">
+  <h2>Your 's Bookmark</h2>
+  <p>Hiển thị danh sách những bookmark mà bạn đã thêm vào</p>    
+  <form action="delete_bms.php" method="post">        
+  <table class="table table-hover table-bordered ">
+    <thead class="bg-primary text-light">
+      <tr>
+        <th>Bookmark</th>
+        <th>Delete</th>
+        
+      </tr>
+    </thead>
+    <tbody>
             <?php
 
             for ($i = 0; $i < count($url_array); ++$i) {
@@ -463,9 +550,16 @@ function display_user_urls($url_array)
                 echo "</tr>";
             }
             ?>
-        </table>
-        <input type="submit" value="Submit">
-    </form>
+    </tbody>
+  </table>
+  <button type="submit" id="btn" class="btn btn-primary" onclick="">Delete bookmark</button>
+            
+  </form>
+</div>
+
+
+
+   
 
 
 <?php

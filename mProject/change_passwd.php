@@ -18,7 +18,7 @@ if (isset($_POST['old_passwd']) && isset($_POST['new_passwd']) && isset($_POST['
         echo $e->getMessage();
     }
 } else {
-    echo "aaa";
+    echo "Thông tin chưa được gửi";
 }
 
 do_html_footer();
