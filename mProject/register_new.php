@@ -11,6 +11,7 @@ require_once('bookmark_fns.php');
 
 
 
+
 //bắt đầu session 
 //session_start(); //hàm có sẵn
 

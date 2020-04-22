@@ -18,64 +18,77 @@ function do_html_header($title)
         <script type="text/javascript" src="Jquery\jquery-3.4.1.min.js"></script>
         <!--bootstrap 4 js-->
         <script type="text/javascript" src="Bootstrap4\bootstrap-4.4.1-dist\js\bootstrap.js"></script>
- 
+
 
     </head>
 
     <body>
 
-   
-        
+
+
 
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
             <!-- Brand/logo -->
             <a class="navbar-brand" href="member.php">Php Bookmark</a>
 
             <!-- Links -->
-            <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item"> <a class="nav-link" href="member.php">Home</a></li>
+            <ul class="nav navbar-nav ml-auto align-items-center">
+                <li class="nav-item "> <a class="nav-link" href="member.php">Home</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="add_bm_form.php">Add Bookmark</a>
                 </li>
-                <li class="nav-item"> 
+                <li class="nav-item">
                     <a class="nav-link" href="recommend.php">Recommend Url</a>
                 </li>
 
-                <?php 
-                    //nếu đã đăng nhập thì "xin chào"
-                    if(check_valid_user()){
 
-                        //xuất hiện hi + user !
-                        echo "<div class='dropdown'>
-                        <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>".
-                            "Hi "   . stripslashes($_SESSION['valid_user'])." !". //stripslashes :hàm xử lý chuỗi ,sẽ bỏ dấu \ or \\
-                        
+
+
+                <?php
+                //nếu đã đăng nhập thì "xin chào"
+                if (check_valid_user()) {
+
+                    //xuất hiện hi + user !
+                    echo "<div class='dropdown'>
+                        <button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown'>" .
+                        "Hi "   . stripslashes($_SESSION['valid_user']) . " !" . //stripslashes :hàm xử lý chuỗi ,sẽ bỏ dấu \ or \\
+
                         "</button>
                         <div class='dropdown-menu'>
+                            <a class='dropdown-item' href='user_profile.php'>View Profile</a>
                           <a class='dropdown-item' href='change_passwd_form.php'>Change Password</a>
-                          <a class='dropdown-item' href='#'>Link 2</a>
-                          <a class='dropdown-item' href='#'>Link 3</a>
+                          <a class='dropdown-item' href='logout.php'>Logout</a>
+                          
                         </div>
                       </div>";
-                       
-                      //xuất hiện log out
-                        echo "<li class='nav-item'> 
-                        <a class='nav-link' href='logout.php'>Logout</a>
+
+                    //xuất hiện search 
+                    echo "<li class='nav-item px-2 '>
+                        
+
+                            <form action='search.php' method='GET'>
+                            <div class='form-group pt-3'>
+                                <input class='form-control' name='keyword' type='text' placeholder='Search' aria-label='Search'>
+                            </div>
+                             </form>
+
+                     
+                           
+                           
                         </li>";
-                    }
-                    //nếu chưa thì hiện option "đăng nhập đăng ký"
-                    else{
-                        echo "<li class='nav-item'> 
+                }
+                //nếu chưa thì hiện option "đăng nhập đăng ký"
+                else {
+                    echo "<li class='nav-item'> 
                         <a class='nav-link' href='login.php'>Log in</a>
                         </li>";
-                        echo "<li class='nav-item'> 
+                    echo "<li class='nav-item'> 
                         <a class='nav-link' href='register_form.php'>Register</a>
                         </li>";
-                        
-                    }
+                }
                 ?>
-                
-              
+
+
             </ul>
 
             <p id="test"></p>
@@ -85,22 +98,20 @@ function do_html_header($title)
 
         <!--Script-->
         <script>
-        var path_name=window.location.pathname;
-        var arr_split=path_name.split("/");
-        var file_name=arr_split[arr_split.length-1];
-        
-            var x=document.getElementsByClassName("nav-link");
-            for(let i=0;i<x.length;++i){
-                
-                 if(x[i].getAttribute('href') == file_name)
-                 {
-                  
-                   x[i].className+=" active";
-                 }
+            var path_name = window.location.pathname;
+            var arr_split = path_name.split("/");
+            var file_name = arr_split[arr_split.length - 1];
 
-           
+            var x = document.getElementsByClassName("nav-link");
+            for (let i = 0; i < x.length; ++i) {
+
+                if (x[i].getAttribute('href') == file_name) {
+
+                    x[i].className += " active";
+                }
+
+
             }
-        
         </script>
 
 
@@ -129,11 +140,11 @@ function do_html_footer()
             <a href="#"> NguyenTuanHuy.com</a>
         </div>
         <!-- Copyright -->
-      
-        
+
+
     </footer>
     <!-- Footer -->
-    
+
 
 
 
@@ -164,71 +175,73 @@ function display_info_site()
 function display_registration_form()
 {
 
-?>  
+?>
     <title>Registration</title>
-    
+
 
     <!--bootstrap 4 css-->
     <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
 
-<div class="container">
-<div class="login-form mx-auto col-5"> <!--mx-auto : margin horizontal center-->
-    <div class="page-header text-center">
-        <h1>Register</h1>
-    </div>
-    <form action="register_new.php" method="post" class="form-validate" _lpchecked="1" >
-        <div class="form-group">
-            <div class="control-label">
-                <label id="username-lbl" for="username" class="required invalid">Username:</label>
+    <div class="container">
+        <div class="login-form mx-auto col-5">
+            <!--mx-auto : margin horizontal center-->
+            <div class="page-header text-center">
+                <h1>Register</h1>
             </div>
-            <div class="controls">
-                <input name="username" id="username" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter username" type="text">
-               
-            </div>
-        </div>
+            <form action="register_new.php" method="post" class="form-validate" _lpchecked="1">
+                <div class="form-group">
+                    <div class="control-label">
+                        <label id="username-lbl" for="username" class="required invalid">Username:</label>
+                    </div>
+                    <div class="controls">
+                        <input name="username" id="username" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter username" type="text">
 
-        <div class="form-group">
-            <div class="control-label">
-                <label class="control-label " for="email">Email:</label>
-            </div>
-            <div class="controls">
-                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required=""> <!--thêm required để kiểm tra form-->
-               
-            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="control-label">
+                        <label class="control-label " for="email">Email:</label>
+                    </div>
+                    <div class="controls">
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required="">
+                        <!--thêm required để kiểm tra form-->
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label">
+                        <label id="password-lbl" for="password" class="required">Password:</label>
+
+                    </div>
+                    <div class="controls">
+                        <input type="password" class="form-control" id="passwd" placeholder="Enter password" name="passwd" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label">
+                        <label for="password2" class="required">Confirm Password:</label>
+
+                    </div>
+                    <div class="controls">
+                        <input type="password" class="form-control" id="passwd2" placeholder="Confirm password" name="passwd2" required="">
+                    </div>
+                </div>
+
+
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary" onclick="validate_mForm_register()">Register</button>
+                </div>
+
+
+
+
+            </form>
+
         </div>
-        <div class="form-group">
-            <div class="control-label">
-                <label id="password-lbl" for="password" class="required">Password:</label>
-               
-            </div>
-            <div class="controls">
-            <input type="password" class="form-control" id="passwd" placeholder="Enter password" name="passwd" required="">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="control-label">
-                <label  for="password2" class="required">Confirm Password:</label>
-               
-            </div>
-            <div class="controls">
-                <input type="password" class="form-control" id="passwd2" placeholder="Confirm password" name="passwd2" required="">
-            </div>
-        </div>
-       
-           
-        <div class="controls">
-            <button type="submit" class="btn btn-primary" onclick="validate_mForm_register()">Register</button>
-        </div>
-           
-        
-       
-        
-    </form>
-   
-</div>
-</div>
-<script type="text/javascript" src="js/mJs.js"></script>
-   
+    </div>
+    <script type="text/javascript" src="js/mJs.js"></script>
+
 <?php
 }
 ?>
@@ -240,47 +253,48 @@ function display_login_form()
 ?>
     <title>Login</title>
     <!--bootstrap 4 css-->
-     <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
 
     <div class="container">
-	<div class="login-form mx-auto col-5"> <!--mx-auto : margin horizontal center-->
-		<div class="page-header text-center">
-			<h1>Login</h1>
-		</div>
-		<form action="member.php" method="post" class="form-validate" _lpchecked="1" >
-			<div class="form-group">
-				<div class="control-label">
-					<label id="username-lbl" for="username" class="required invalid">Username<span class="star"> *</span></label>
-				</div>
-				<div class="controls">
-                    <input name="username" id="username" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter username" type="text">
-                   
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="control-label">
-					<label id="password-lbl" for="password" class="required">Password<span class="star"> *</span></label>
-					<a class="float-right" href="forgot_form.php">Forgot your password?</a>
-				</div>
-				<div class="controls">
-                <input type="password" class="form-control" id="passwd" placeholder="Enter password" name="passwd" required="">
-				</div>
-			</div>
-			
-			<div class="form-group d-flex justify-content-start">
-				<div class="controls">
-					<button type="submit" class="btn btn-primary" >Log in</button>
-				</div>
-			</div>
-			
-			
-			
-		</form>
-		<div class="text-center">
-			<a href="register_form.php">Don't have an account?</a>
-		</div>
-	</div>
-</div>
+        <div class="login-form mx-auto col-5">
+            <!--mx-auto : margin horizontal center-->
+            <div class="page-header text-center">
+                <h1>Login</h1>
+            </div>
+            <form action="member.php" method="post" class="form-validate" _lpchecked="1">
+                <div class="form-group">
+                    <div class="control-label">
+                        <label id="username-lbl" for="username" class="required invalid">Username<span class="star"> *</span></label>
+                    </div>
+                    <div class="controls">
+                        <input name="username" id="username" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter username" type="text">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label">
+                        <label id="password-lbl" for="password" class="required">Password<span class="star"> *</span></label>
+                        <a class="float-right" href="forgot_form.php">Forgot your password?</a>
+                    </div>
+                    <div class="controls">
+                        <input type="password" class="form-control" id="passwd" placeholder="Enter password" name="passwd" required="">
+                    </div>
+                </div>
+
+                <div class="form-group d-flex justify-content-start">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                    </div>
+                </div>
+
+
+
+            </form>
+            <div class="text-center">
+                <a href="register_form.php">Don't have an account?</a>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -310,86 +324,81 @@ function display_change_passwd_form()
 
 ?>
 
-    
-     <!--bootstrap 4 css-->
-     <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
 
-<div class="container">
-<div class="login-form mx-auto col-5"> <!--mx-auto : margin horizontal center-->
-    <div class="page-header text-center">
-        <h1>Change Password</h1>
+    <!--bootstrap 4 css-->
+    <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
+
+    <div class="container">
+        <div class="login-form mx-auto col-5">
+            <!--mx-auto : margin horizontal center-->
+            <div class="page-header text-center">
+                <h1>Change Password</h1>
+            </div>
+            <form action="change_passwd.php" method="post" class="form-validate" _lpchecked="1" onsubmit="return validate_change_passwd_form()">
+                <div class="form-group">
+                    <div class="control-label">
+                        <label for="old_passwd" class="required invalid">Old password:</label>
+                    </div>
+                    <div class="controls">
+                        <input name="old_passwd" id="old_passwd" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter old passwd" type="password">
+                        <p class="text-danger" id="error_url"></p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label">
+                        <label for="new_passwd" class="required invalid">New password:</label>
+                    </div>
+                    <div class="controls">
+                        <input name="new_passwd" id="new_passwd" value="" class="form-control" size="15" required="" placeholder="Enter new password" type="text">
+                        <p class="text-danger" id="error_url"></p>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="control-label">
+                        <label for="new_passwd2" class="required invalid">Confirm new password:</label>
+                    </div>
+                    <div class="controls">
+                        <input name="new_passwd2" id="new_passwd2" value="" class="form-control" size="15" required="" placeholder="Confirm new password" type="text">
+                        <p class="text-danger" id="error_url"></p>
+
+                    </div>
+                </div>
+
+
+                <div class="controls">
+                    <button type="submit" id="btn" class="btn btn-primary" onclick="">Change Password</button>
+                </div>
+
+
+
+
+            </form>
+
+        </div>
     </div>
-    <form action="change_passwd.php" method="post" class="form-validate" _lpchecked="1" onsubmit="return validate_change_passwd_form()">
-        <div class="form-group">
-            <div class="control-label">
-                <label for="old_passwd" class="required invalid">Old password:</label>
-            </div>
-            <div class="controls">
-                <input name="old_passwd" id="old_passwd" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter old passwd" type="password">
-                <p class="text-danger" id="error_url"></p>
-               
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="control-label">
-                <label for="new_passwd" class="required invalid">New password:</label>
-            </div>
-            <div class="controls">
-                <input name="new_passwd" id="new_passwd" value="" class="form-control" size="15" required=""  placeholder="Enter new password" type="text">
-                <p class="text-danger" id="error_url"></p>
-               
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="control-label">
-                <label for="new_passwd2" class="required invalid">Confirm new password:</label>
-            </div>
-            <div class="controls">
-                <input name="new_passwd2" id="new_passwd2" value="" class="form-control" size="15" required=""  placeholder="Confirm new password" type="text">
-                <p class="text-danger" id="error_url"></p>
-               
-            </div>
-        </div>
-        
-        
-            <div class="controls">
-                <button type="submit" id="btn" class="btn btn-primary" onclick="">Change Password</button>
-            </div>
-        
-        
-        
-        
-    </form>
-   
-</div>
-</div>
 
-<script>
+    <script>
         function validate_change_passwd_form() {
             var new_passwd = document.getElementById("new_passwd");
             var new_passwd2 = document.getElementById("new_passwd2");
 
-            if(new_passwd.value != new_passwd2.value){
+            if (new_passwd.value != new_passwd2.value) {
                 alert("New password chưa trùng khớp");
                 new_passwd.focus();
                 return false;
             }
-           
-            
-           
+
+
+
 
             return true;
         }
-       
-            
-           
-
-
-       
     </script>
 
-   
-    
+
+
 
 <?php
 }
@@ -402,41 +411,42 @@ function display_forgot_passwd_form()
 
 ?>
 
-     <!--bootstrap 4 css-->
-     <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
+    <!--bootstrap 4 css-->
+    <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
 
-<div class="container">
-<div class="login-form mx-auto col-5"> <!--mx-auto : margin horizontal center-->
-    <div class="page-header text-center">
-        <h1>Forgot Password</h1>
-    </div>
-    <form action="forgot_passwd.php" method="post" class="form-validate" _lpchecked="1" >
-        <div class="form-group">
-            <div class="control-label">
-                <label for="username" class="required invalid">Username:</label>
+    <div class="container">
+        <div class="login-form mx-auto col-5">
+            <!--mx-auto : margin horizontal center-->
+            <div class="page-header text-center">
+                <h1>Forgot Password</h1>
             </div>
-            <div class="controls">
-                <input name="username" id="username" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter username" type="text">
-                <p class="text-danger" id="error_url"></p>
-               
-            </div>
+            <form action="forgot_passwd.php" method="post" class="form-validate" _lpchecked="1">
+                <div class="form-group">
+                    <div class="control-label">
+                        <label for="username" class="required invalid">Username:</label>
+                    </div>
+                    <div class="controls">
+                        <input name="username" id="username" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter username" type="text">
+                        <p class="text-danger" id="error_url"></p>
+
+                    </div>
+                </div>
+
+
+                <div class="controls">
+                    <button type="submit" id="btn" class="btn btn-primary" onclick="">Reset Password</button>
+                </div>
+
+
+
+
+            </form>
+
         </div>
-        
-        
-            <div class="controls">
-                <button type="submit" id="btn" class="btn btn-primary" onclick="">Reset Password</button>
-            </div>
-        
-        
-        
-        
-    </form>
-   
-</div>
-</div>
+    </div>
 
-   
-   
+
+
 
 <?php
 }
@@ -453,37 +463,38 @@ function display_add_bm_form()
     <!--bootstrap 4 css-->
     <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
 
-<div class="container">
-<div class="login-form mx-auto col-5"> <!--mx-auto : margin horizontal center-->
-    <div class="page-header text-center">
-        <h1>Add new Bookmark</h1>
-    </div>
-    <form action="add_bms.php" method="post" class="form-validate" _lpchecked="1" onsubmit="return validate_add_bm_form()">
-        <div class="form-group">
-            <div class="control-label">
-                <label for="new_url" class="required invalid">New url</label>
+    <div class="container">
+        <div class="login-form mx-auto col-5">
+            <!--mx-auto : margin horizontal center-->
+            <div class="page-header text-center">
+                <h1>Add new Bookmark</h1>
             </div>
-            <div class="controls">
-                <input name="new_url" id="new_url" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter new_url" type="text">
-                <p class="text-danger" id="error_url"></p>
-               
-            </div>
-        </div>
-        
-        
-            <div class="controls">
-                <button type="submit" id="btn" class="btn btn-primary" onclick="">Add</button>
-            </div>
-        
-        
-        
-        
-    </form>
-   
-</div>
-</div>
+            <form action="add_bms.php" method="post" class="form-validate" _lpchecked="1" onsubmit="return validate_add_bm_form()">
+                <div class="form-group">
+                    <div class="control-label">
+                        <label for="new_url" class="required invalid">New url</label>
+                    </div>
+                    <div class="controls">
+                        <input name="new_url" id="new_url" value="" class="form-control" size="15" required="" autofocus="" placeholder="Enter new_url" type="text">
+                        <p class="text-danger" id="error_url"></p>
 
-   
+                    </div>
+                </div>
+
+
+                <div class="controls">
+                    <button type="submit" id="btn" class="btn btn-primary" onclick="">Add</button>
+                </div>
+
+
+
+
+            </form>
+
+        </div>
+    </div>
+
+
 
 
 
@@ -491,26 +502,20 @@ function display_add_bm_form()
         function validate_add_bm_form() {
             var new_url = document.getElementById("new_url");
 
-           
+
             var str = new_url.value;
             var sub1 = "http://";
             var sub2 = "https://";
-            
+
             if (str.indexOf(sub1) == -1 && str.indexOf(sub2) == -1) {
-                    alert("Url nhập vào phải có http:// hoặc https://");
-                    new_url.focus();
-                    return false;
-               }
+                alert("Url nhập vào phải có http:// hoặc https://");
+                new_url.focus();
+                return false;
+            }
 
 
             return true;
         }
-       
-            
-           
-
-
-       
     </script>
 
 
@@ -524,42 +529,42 @@ function display_user_urls($url_array)
 {
 
 ?>
-    
+
 
     <div class="container">
-  <h2>Your 's Bookmark</h2>
-  <p>Hiển thị danh sách những bookmark mà bạn đã thêm vào</p>    
-  <form action="delete_bms.php" method="post">        
-  <table class="table table-hover table-bordered ">
-    <thead class="bg-primary text-light">
-      <tr>
-        <th>Bookmark</th>
-        <th>Delete</th>
-        
-      </tr>
-    </thead>
-    <tbody>
-            <?php
+        <h2>Your 's Bookmark</h2>
 
-            for ($i = 0; $i < count($url_array); ++$i) {
-                echo "<tr>";
-                echo "<td>$url_array[$i] </td>";
-                //Clicking on the Delete BM option del_me[] activates the delete_bms.php script
+        <form action="delete_bms.php" method="post">
+            <table class="table table-hover table-bordered ">
+                <thead class="bg-primary text-light">
+                    <tr>
+                        <th>Bookmark</th>
+                        <th>Delete</th>
 
-                echo "<td><input type='checkbox' name='del_me[]' value='$url_array[$i]'></td>";
-                echo "</tr>";
-            }
-            ?>
-    </tbody>
-  </table>
-  <button type="submit" id="btn" class="btn btn-primary" onclick="">Delete bookmark</button>
-            
-  </form>
-</div>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+
+                    for ($i = 0; $i < count($url_array); ++$i) {
+                        echo "<tr>";
+                        echo "<td>$url_array[$i] </td>";
+                        //Clicking on the Delete BM option del_me[] activates the delete_bms.php script
+
+                        echo "<td><input type='checkbox' name='del_me[]' value='$url_array[$i]'></td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <button type="submit" id="btn" class="btn btn-primary" onclick="">Delete bookmark</button>
+
+        </form>
+    </div>
 
 
 
-   
+
 
 
 <?php
@@ -568,22 +573,7 @@ function display_user_urls($url_array)
 }
 ?>
 
-<?php
-//========== DISPLAY user urls ==================
-//hiển thị các url của user lấy được từ DB (hàm get_user_urls($username))
-function display_user_menu()
-{
-?>
-    <hr>
-    <ul>
 
-
-    </ul>
-<?php
-
-
-}
-?>
 
 <?php
 //========== DISPLAY user urls ==================
@@ -601,3 +591,51 @@ function display_recommended_urls($urls)
     }
 }
 ?>
+
+<?php
+function display_user_profile()
+{
+
+?>
+    <!--bootstrap 4 css-->
+    <link href="Bootstrap4\bootstrap-4.4.1-dist\css\bootstrap.css" rel="stylesheet" type="text/css">
+
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="text-danger">User Profile</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="col-4">
+                        <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive">
+
+
+                    </div>
+                    <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
+                        <div class="container">
+                            <h2>John Doe</h2>
+                            <p>an <b> Employee</b></p>
+
+
+                        </div>
+                        <hr>
+                        <ul class="container details">
+                            <li>
+                                <p><span class="glyphicon glyphicon-user one" style="width:50px;"></span>i.rudberg</p>
+                            </li>
+                            <li>
+                                <p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>somerandom@email.com</p>
+                            </li>
+                        </ul>
+                        <hr>
+                        <div class="col-sm-5 col-xs-6 tital ">Date Of Joining: 15 Jun 2016</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <?php
+}
+    ?>

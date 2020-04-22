@@ -26,6 +26,21 @@ function get_user_urls($username)
     }
     return $url_array;
 }
+//get search url
+function get_search_urls($username,$keyword)
+{
+    //extract from the database all the URLs this user has stored
+    $conn = db_connect();
+    $result = $conn->query("select bm_URL from bookmark where username = '$username' and bm_URL LIKE '%".$keyword."%'");
+    if (!$result)
+        return false;
+    //create an array of the URLs
+    $url_array = array();
+    for ($count = 0; $row = $result->fetch_row(); ++$count) {
+        $url_array[$count] = $row[0];
+    }
+    return $url_array;
+}
 
 function delete_bm($user, $url){
     // delete one URL from the database
